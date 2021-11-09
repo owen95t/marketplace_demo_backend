@@ -1,18 +1,22 @@
-let express = require('express');
-let app = express();
-let PORT = process.env.PORT || 3000
-let cookieParser = require('cookie-parser');
-let logger = require('morgan');
+const express = require('express');
+const app = express();
+const PORT = process.env.PORT || 3000
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const connectDB = require('./config/db')
 
-let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/users');
-let itemsRouter = require('./routes/items')
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const itemsRouter = require('./routes/items')
 
 //MIDDLEWARES
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+//DB
+connectDB();
 
 //ROUTES
 app.use('/', indexRouter);
