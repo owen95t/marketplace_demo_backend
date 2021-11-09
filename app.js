@@ -5,9 +5,9 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const connectDB = require('./config/db')
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const itemsRouter = require('./routes/items')
+const indexRouter = require('./routes/index_router');
+const usersRouter = require('./routes/users_router');
+const itemsRouter = require('./routes/items_router')
 
 //MIDDLEWARES
 app.use(logger('dev'));
