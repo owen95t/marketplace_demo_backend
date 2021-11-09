@@ -28,11 +28,11 @@ let item_model = new Schema({
         type: Date,
         required: true
     },
-    item_status: {
+    item_status: { //show or hide item
         type: Boolean,
         required: true
     },
-    item_rating: {
+    item_rating: { //from 1 to 5
         type: Number,
         min: 0,
         max: 5
