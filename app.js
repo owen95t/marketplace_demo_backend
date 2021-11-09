@@ -4,21 +4,51 @@ const PORT = process.env.PORT || 3000
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const connectDB = require('./config/db')
+const session = require('express-session')
+const secret = require('./config/secret')
+const MongoStore = require('connect-mongo')
+const limiter = require('express-rate-limit')
+const helmet = require('helmet')
 
+//REQUIRE ROUTES
 const indexRouter = require('./routes/index_router');
 const usersRouter = require('./routes/users_router');
 const itemsRouter = require('./routes/items_router')
+
+//RATE LIMIT
+const rateLimter = limiter({
+    max: 200,
+    window: 1000 * 60 * 15 //every 15 minute window, allow 200 requests
+})
+
+//DB
+connectDB();
+
+//EXPRESS SESSION SETUP WITH MONGODB AS SESSION STORE
+app.use(session({
+    secret: secret.session_secret,
+    cookie: {
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24 //one day
+    },
+    saveUninitialized: false, //dont create session until something is stored
+    resave: false, //dont save session if unmodified
+    store: MongoStore.create({
+        mongoUrl: secret.uri || process.env.MONGO_URI,
+        collectionName: 'sessions'
+    })
+}))
 
 //MIDDLEWARES
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use('json spaces', 2)
+app.use(rateLimter)
+app.use(helmet())
 
-//DB
-connectDB();
-
-//ROUTES
+//USE ROUTES
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/items', itemsRouter)

@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const item_controller = require('../controller/item_controller')
-//Get all items for homepage
+
+//API index
 router
     .get('/', (req, res) => {
         return res.status(200).json({message: 'You are at the root of items'})
     })
 
+//Get All for homepage
 router
     .route('/getAll') //items/getAll
     .get(item_controller.getAll)
@@ -14,7 +16,7 @@ router
 //Get user items
 router
     .route('/get')
-    .get()
+    .get(item_controller.getUserItems)
 
 //Post new Item
 router
@@ -31,7 +33,6 @@ router
 router
     .route('/edit')
     .put(item_controller.editItem)
-
 
 
 module.exports = router;

@@ -1,5 +1,3 @@
-const Item = require('../schema/item_schema')
-const itemValidation = require('../validation/item_validation')
 const itemModel = require('../model/item_model')
 
 
@@ -23,6 +21,25 @@ exports.getAll = async (req, res) => {
         console.log('Server Error: Cannot complete Find operation' + e)
         res.status(500).json({message: 'Server Error: Cannot complete Find operation'})
     }
+}
+
+//EVERYTHING BELOW REQUIRES AUTH
+
+exports.getUserItems = async (req, res) => {
+    let user_id = req.session.uid
+
+    await itemModel.getUsersItems(user_id).then((results) => {
+        if (!results) {
+            console.log('This user has no items')
+            return res.status(200).json({message: 'This user has no items!'})
+        }
+        return res.status(200).json(results)
+    }).catch(e => {
+        if (e) {
+            console.log(e);
+            return res.status(500).json({message: `Error retrieving user this user's items`})
+        }
+    })
 }
 
 //requires auth
