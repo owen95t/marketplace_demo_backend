@@ -34,6 +34,10 @@ let item_schema = new Schema({
         type: Number,
         min: 0,
         max: 5
+    },
+    user_id: {
+        type: String,
+        required: true
     }
 }, {
     collection: 'items'

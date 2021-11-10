@@ -47,24 +47,26 @@ exports.createUser = async (data) => {
     // }
 }
 
-exports.login = async (data, session) => { //takes in req.body and req.session
+exports.login = async (data) => { //takes in req.body and req.session
     //User input validation
     const {error} = await userValidation.loginValidation(data)
     if (error) {
         console.log('Failed to login. Error validating user data');
-        return Promise.reject(error)
+        return Promise.reject(new Error())
     }
 
     let user = await findUser(data.email)
     if (!user) {
         console.log('No user with this email found!')
-        return Promise.reject(new Error('No user with this email found!'))
+        // return Promise.reject(new Error('No user with this email found!'))
+        return Promise.reject('No user with this email found!')
     }
-
-    session.isAuth = true;
-    session.uid = user._id
+    return user
+    // session.isAuth = true;
+    // session.uid = user._id
 
     //how to return session to controller?
+
 }
 
 exports.logout = (session) => {

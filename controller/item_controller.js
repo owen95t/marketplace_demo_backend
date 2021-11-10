@@ -45,7 +45,8 @@ exports.getUserItems = async (req, res) => {
 //requires auth
 exports.postItem = async (req, res) => {
     console.log(req.body)
-    await itemModel.postItem(req.body).then((results) => {
+    let uid = req.session.uid
+    await itemModel.postItem(req.body, uid).then((results) => {
         return res.status(201).json({message: 'New item created successfully!'});
     }).catch(e => {
         if (e) {

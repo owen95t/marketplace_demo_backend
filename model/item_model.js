@@ -12,8 +12,10 @@ exports.getUsersItems = async (user_id) => {
 }
 
 //POST Item
-exports.postItem = async (data) => {
+exports.postItem = async (data, uid) => {
     //Data validation
+    data["user_id"] = uid
+    console.log(data)
     const {error} = await itemValidation.postItemValidation(data)
     if (error) {
         console.log('Error posting new item due to wrong input: ' + error)

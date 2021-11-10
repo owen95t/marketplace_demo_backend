@@ -17,13 +17,12 @@ router
 //Get user items
 router
     .route('/get')
-    .get(item_controller.getUserItems)
+    .get(auth, item_controller.getUserItems)
 
 //Post new Item
 router
     .route('/post')
-    .post(item_controller.postItem)
-
+    .post(auth, item_controller.postItem)
 
 //Delete user items
 router
@@ -33,7 +32,7 @@ router
 //Edit Items
 router
     .route('/edit')
-    .put(item_controller.editItem)
+    .put(auth, item_controller.editItem)
 
 
 module.exports = router;

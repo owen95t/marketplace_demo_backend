@@ -17,5 +17,25 @@ exports.createUser = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
+    try{
+        const user = await userModel.login(req.body)
+        if (!user) {
+            console.log('No User??')
+            return res.status(400).json({message: 'No user. Error??'})
+        }
+        req.session.uid = user._id
+        req.session.isAuth = true
+        console.log('Login Successful!')
+        return res.status(200).json({message: 'Login successful!'})
+    }catch (e) {
+        console.log('Error logging in: ' + e)
+        return res.status(400).json({message: 'Error logging in: ' + e})
+    }
 
+
+}
+
+exports.logout = (req, res) => {
+    req.session.destroy()
+    return res.status(200).json({message: 'Logout successfully'})
 }

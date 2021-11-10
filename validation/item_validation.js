@@ -25,7 +25,7 @@ exports.editItemValidation = (data) => {
             .max(5) //max of 5
             .min(0) //min of 0
             .default(0), //default at 0
-        _id: joi.string()
+        user_id: joi.string()
             .required(),
         __v: joi.number()
     })
@@ -56,7 +56,9 @@ exports.postItemValidation = (data) => {
             .integer() //requires it to be integer
             .max(5) //max of 5
             .min(0) //min of 0
-            .default(0) //default at 0
+            .default(0), //default at 0
+        user_id: joi.string()
+            .required()
     })
     return schema.validateAsync(data)
 }
