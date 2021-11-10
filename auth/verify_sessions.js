@@ -3,6 +3,7 @@ module.exports = (req, res, next) => {
         return res.status(401).json({message: 'Not Authenticated'})
     }
     if (req.session.isAuth) {
+        console.log('Request made by: ' + req.session.uid)
         next();
     } else {
         return res.status(401).json({message: 'Not Authenticated'})

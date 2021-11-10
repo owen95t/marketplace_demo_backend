@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const item_controller = require('../controller/item_controller')
+const auth = require('../auth/verify_sessions')
 
 //API index
 router
@@ -27,7 +28,7 @@ router
 //Delete user items
 router
     .route('/delete')
-    .delete(item_controller.deleteItem)
+    .delete(auth, item_controller.deleteItem)
 
 //Edit Items
 router
