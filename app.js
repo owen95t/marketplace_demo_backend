@@ -9,6 +9,7 @@ const secret = require('./config/secret')
 const MongoStore = require('connect-mongo')
 const limiter = require('express-rate-limit')
 const helmet = require('helmet')
+const cors = require('cors')
 
 //REQUIRE ROUTES
 const indexRouter = require('./routes/index_router');
@@ -47,6 +48,11 @@ app.use(cookieParser());
 app.set('json spaces', 2)
 app.use(rateLimter)
 app.use(helmet())
+app.use(cors({
+    allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization', 'auth-token', 'Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'CSRFToken'],
+    credentials: true,
+    origin: ["http://localhost:8080", "http://localhost:3000"]
+}))
 
 //USE ROUTES
 app.use('/', indexRouter);

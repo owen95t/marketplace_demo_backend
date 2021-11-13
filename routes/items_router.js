@@ -14,9 +14,14 @@ router
     .route('/getAll') //items/getAll
     .get(item_controller.getAll)
 
+//Get by ID
+router
+    .route('/getID/:id')
+    .get(item_controller.getByID)
+
 //Get user items
 router
-    .route('/get')
+    .route('/getUserItems')
     .get(auth, item_controller.getUserItems)
 
 //Post new Item

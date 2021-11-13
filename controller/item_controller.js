@@ -16,11 +16,26 @@ exports.getAll = async (req, res) => {
                 message: 'No results found!'
             })
         }
+        // console.log(results)
         res.status(200).json(results)
     }catch (e) {
         console.log('Server Error: Cannot complete Find operation' + e)
         res.status(500).json({message: 'Server Error: Cannot complete Find operation'})
     }
+}
+
+exports.getByID = async (req, res) => {
+    let id = req.params.id
+    await itemModel.getByID(id).then(result => {
+        if (!result) {
+            return res.status(200).json({message: 'No item was found'})
+        }
+        return res.status(200).json(result)
+    }).catch(e => {
+        console.log('Error getting item by ID' + e)
+        return res.status(500).json({message: 'Error getting item by id: ' + e})
+    })
+
 }
 
 //EVERYTHING BELOW REQUIRES AUTH
@@ -50,7 +65,7 @@ exports.postItem = async (req, res) => {
         return res.status(201).json({message: 'New item created successfully!'});
     }).catch(e => {
         if (e) {
-            console.log('Error creating new item')
+            console.log('Error creating new item' + e)
             return res.status(400).json({message: 'Error creating new item: ' + e})
         }
     })
@@ -58,15 +73,15 @@ exports.postItem = async (req, res) => {
 
 //requires auth
 exports.editItem = async (req, res) => {
-    console.log('Edit item: ' + JSON.stringify(req.body))
-
+    console.log('Edit item: ' + req.body)
+    //req.body = {item_id : id, editedData: data}
     try{
-        let results = await itemModel.editItem((req.body))
+        let results = await itemModel.editItem(req.body)
         console.log('Results: ' + results)
         if (!results) {
             console.log('No item was edited')
+            return res.status(200).json({message: 'No Item was edited'})
         }
-        console.log('Edited Successfully');
         return res.status(200).json({message: 'Item edited successfully'})
     }catch (e) {
         console.log(e)

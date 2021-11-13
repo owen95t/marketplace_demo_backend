@@ -11,19 +11,37 @@ exports.getUsersItems = async (user_id) => {
     return await Item.find({user_id: user_id})
 }
 
+exports.getByID = async (id) => {
+    return await Item.findById({_id: id})
+}
+
 //POST Item
 exports.postItem = async (data, uid) => {
     //Data validation
-    data["user_id"] = uid
-    console.log(data)
-    const {error} = await itemValidation.postItemValidation(data)
-    if (error) {
-        console.log('Error posting new item due to wrong input: ' + error)
-        return Promise.reject(error)
-    }
+    //data["user_id"] = uid
 
-    //Create newItem variable
-    const newItem = new Item(data);
+    const newItem = new Item({
+        item_name: data.item_name,
+        item_desc: data.item_desc,
+        item_price: data.item_price,
+        item_discount: data.item_discount,
+        item_owner_id: uid,
+        date_created: Date.now(),
+        item_status: true,
+        item_rating: 0,
+        user_id: uid
+    })
+
+
+    console.log(newItem)
+    // const {error} = await itemValidation.postItemValidation(newItem)
+    // if (error) {
+    //     console.log('Error posting new item due to wrong input: ' + error)
+    //     return Promise.reject(error)
+    // }
+
+    //Create product variable
+    // const product = new Item(newItem);
     //return Promise save
     return await newItem.save()
 }
@@ -31,25 +49,30 @@ exports.postItem = async (data, uid) => {
 //DELETE Item
 exports.deleteItem = async (item_id) => {
     //Should first check to see if item exists?
+    console.log('ITEM TO DELETE ID: ' + item_id)
     return await Item.findOneAndDelete({_id: item_id})
 }
 
 //PUT update item
 exports.editItem = async (data) => {
+    console.log('data: ' + JSON.stringify(data))
     //Data validation
-    const {error} = await itemValidation.editItemValidation(data)
-    if (error){
-        console.log(error)
-        return Promise.reject(error)
-    }
+    // const {error} = await itemValidation.editItemValidation(data)
+    // if (error){
+    //     console.log(error)
+    //     return Promise.reject(error)
+    // }
+    // if (data.user_id !== uid) {
+    //     return Promise.reject('You are not allowed to edit this item.')
+    // }
+
     //Assign item id
-    const item_id = data._id
+    const item_id = data.item_id;
+    console.log(item_id)
     //try catch for promises
-    try{
-        //this Promise still resolves despite failing to update??
-        return await Item.findOneAndUpdate({_id: item_id}, data)
-    }catch (e) {
-        console.log('Failed to edit item: ' + e)
-    }
+
+    //this Promise still resolves despite failing to update??
+    return await Item.findOneAndUpdate({_id: item_id}, data.editedData)
+
 }
 
