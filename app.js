@@ -29,7 +29,7 @@ connectDB();
 app.use(session({
     secret: process.env.SESSION_SECRET || require('./config/secret').session_secret,
     cookie: {
-        httpOnly: true,
+        httpOnly: false,
         maxAge: 1000 * 60 * 60 * 24, //one day
         sameSite: 'none', //change to none
         secure: true //for production
