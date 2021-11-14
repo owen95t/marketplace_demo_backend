@@ -1,7 +1,6 @@
 const User = require('../schema/user_schema')
 const userValidation = require('../validation/user_validation')
 const bcrypt = require('bcrypt')
-const secret = require('../config/secret').secret || process.env.SESSION_SECRET
 const saltRounds = 10;
 
 exports.createUser = async (data) => {
