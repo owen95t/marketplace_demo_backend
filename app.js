@@ -53,8 +53,10 @@ app.use(rateLimter)
 app.use(helmet())
 app.use(cors({
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization', 'auth-token', 'Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'CSRFToken'],
+    // exposedHeaders: ['Origin', 'Access-Control-Allow-Origin'],
     credentials: true,
-    origin: ["http://localhost:8080", "http://localhost:3000", 'https://market-demo-1123.herokuapp.com/']
+    origin: '*', //["http://localhost:8080", "http://localhost:3000", 'https://market-demo-1123.herokuapp.com/'],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE" // ['GET', 'PUT', 'POST', 'DELETE']
 }))
 
 //USE ROUTES
