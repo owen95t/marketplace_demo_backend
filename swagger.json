@@ -1,15 +1,15 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "3.0.0",
-    "title": "My User Project CRUD",
-    "description": "My User Project Application API",
+    "version": "0.1.0",
+    "title": "Marketplace Demo",
+    "description": "Marketplace Demo API Documentation",
     "license": {
       "name": "MIT",
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "localhost:3000",
+  "host": "https://mysterious-bayou-01036.herokuapp.com",
   "basePath": "/",
   "tags": [
     {
