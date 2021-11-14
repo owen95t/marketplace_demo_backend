@@ -37,7 +37,7 @@ app.use(session({
     saveUninitialized: false, //dont create session until something is stored
     resave: false, //dont save session if unmodified
     store: MongoStore.create({
-        mongoUrl: secret.uri || process.env.MONGO_URI,
+        mongoUrl: process.env.MONGO_URI || require('./config/secret').uri,
         collectionName: 'sessions'
     })
 }))
