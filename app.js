@@ -30,7 +30,9 @@ app.use(session({
     secret: secret.session_secret,
     cookie: {
         httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 //one day
+        maxAge: 1000 * 60 * 60 * 24, //one day
+        sameSite: 'none', //change to none
+        secure: true //for production
     },
     saveUninitialized: false, //dont create session until something is stored
     resave: false, //dont save session if unmodified
@@ -46,6 +48,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.set('json spaces', 2)
+// app.set('trust proxy', 1) // trust first proxy
 app.use(rateLimter)
 app.use(helmet())
 app.use(cors({
