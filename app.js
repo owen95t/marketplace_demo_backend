@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const connectDB = require('./config/db')
 const session = require('express-session')
-const secret = require('./config/secret')
+// const secret = require('./config/secret')
 const MongoStore = require('connect-mongo')
 const limiter = require('express-rate-limit')
 const helmet = require('helmet')
@@ -27,7 +27,7 @@ connectDB();
 
 //EXPRESS SESSION SETUP WITH MONGODB AS SESSION STORE
 app.use(session({
-    secret: secret.session_secret || process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || require('./config/secret').session_secret,
     cookie: {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24, //one day
