@@ -9,7 +9,7 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "host": "https://mysterious-bayou-01036.herokuapp.com",
+  "host": "mysterious-bayou-01036.herokuapp.com",
   "basePath": "/",
   "tags": [
     {
@@ -21,7 +21,7 @@
       "description": "API for items in the DB"
     }
   ],
-  "schemes": ["http"],
+  "schemes": ["https"],
   "securityDefinitions": {
     "Session": {
       "type": "basic",
