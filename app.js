@@ -54,7 +54,7 @@ app.use(helmet())
 app.use(cors({
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization', 'auth-token', 'Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'CSRFToken'],
     credentials: true,
-    origin: ["http://localhost:8080", "http://localhost:3000"]
+    origin: ["http://localhost:8080", "http://localhost:3000", 'https://market-demo-1123.herokuapp.com/']
 }))
 
 //USE ROUTES
