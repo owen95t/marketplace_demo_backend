@@ -28,7 +28,7 @@ exports.getByID = async (req, res) => {
     let id = req.params.id
     await itemModel.getByID(id).then(result => {
         if (!result) {
-            return res.status(200).json({message: 'No item was found'})
+            return res.status(404).json({message: 'No item was found'})
         }
         return res.status(200).json(result)
     }).catch(e => {
@@ -46,7 +46,7 @@ exports.getUserItems = async (req, res) => {
     await itemModel.getUsersItems(user_id).then((results) => {
         if (!results) {
             console.log('This user has no items')
-            return res.status(200).json({message: 'This user has no items!'})
+            return res.status(404).json({message: 'This user has no items!'})
         }
         return res.status(200).json(results)
     }).catch(e => {
@@ -80,7 +80,7 @@ exports.editItem = async (req, res) => {
         console.log('Results: ' + results)
         if (!results) {
             console.log('No item was edited')
-            return res.status(200).json({message: 'No Item was edited'})
+            return res.status(404).json({message: 'No Item was edited'})
         }
         return res.status(200).json({message: 'Item edited successfully'})
     }catch (e) {
@@ -96,7 +96,7 @@ exports.deleteItem = async (req, res) => {
     await itemModel.deleteItem(req.body.item_id).then((results) => {
         if (!results) { //if no results == nothing was deleted as it will return the item deleted if item is found
             console.log('No item was deleted')
-            return res.status(200).json({message: 'No item was deleted'})
+            return res.status(404).json({message: 'No item was deleted'})
         }
         console.log('Item deleted successfully');
         return res.status(200).json({message: 'Item deleted successfully!'})

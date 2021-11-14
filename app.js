@@ -11,6 +11,10 @@ const limiter = require('express-rate-limit')
 const helmet = require('helmet')
 const cors = require('cors')
 
+//SWAGGER
+const swaggerUi = require("swagger-ui-express");
+const swaggerJSON = require('./swagger.json')
+
 //REQUIRE ROUTES
 const indexRouter = require('./routes/index_router');
 const usersRouter = require('./routes/users_router');
@@ -58,6 +62,12 @@ app.use(cors({
     origin: ["http://localhost:8080", "http://localhost:3000", 'https://market-demo-1123.herokuapp.com'],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE" // ['GET', 'PUT', 'POST', 'DELETE']
 }))
+
+//SWAGGER SETUP
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJSON, {explorer: true}));
+//END SWAGGER SETUP
+
+
 
 //USE ROUTES
 app.use('/', indexRouter);

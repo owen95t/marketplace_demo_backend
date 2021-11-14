@@ -29,7 +29,7 @@ exports.login = async (req, res) => {
         return res.status(200).json({message: 'Login successful!', id: user._id})
     }catch (e) {
         console.log('Error logging in: ' + e)
-        return res.status(400).json({message: 'Error logging in: ' + e})
+        return res.status(500).json({message: 'Error logging in: ' + e})
     }
 
 
