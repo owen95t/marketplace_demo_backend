@@ -27,7 +27,7 @@ connectDB();
 
 //EXPRESS SESSION SETUP WITH MONGODB AS SESSION STORE
 app.use(session({
-    secret: secret.session_secret,
+    secret: secret.session_secret || process.env.SESSION_SECRET,
     cookie: {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24, //one day
