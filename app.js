@@ -59,7 +59,7 @@ app.use(cors({
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'X-Access-Token', 'Authorization', 'auth-token', 'Access-Control-Allow-Credentials', 'Access-Control-Allow-Origin', 'CSRFToken'],
     // exposedHeaders: ['Origin', 'Access-Control-Allow-Origin'],
     credentials: true,
-    origin: ["http://localhost:8080", "http://localhost:3000", 'https://market-demo-1123.herokuapp.com'],
+    origin: ["http://localhost:8080", "http://localhost:3000", 'https://market-demo-1123.herokuapp.com', 'https://market-demo-1123.netlify.app/'],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE" // ['GET', 'PUT', 'POST', 'DELETE']
 }))
 
